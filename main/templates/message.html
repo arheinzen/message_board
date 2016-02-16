@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message</title>
+</head>
+<body>
+   
+   <div class="bigPicture">
+       
+       <div class="message">
+       
+           
+           <h3> Message: </h3>
+           {% for message in message_list %}
+           
+           <h3> {{ message.title }} </h3>
+           
+           {{ message.body }}
+           
+           </br>
+       
+           </br>
+            
+           <h3> Comment: </h3>
+               {% for comment in message.comment_set.all %}
+             
+               {{ comment.comments }}
+             
+                </br>
+             
+               <h4> User: </h4>
+               {{ message.user }}
+               
+               {% endfor %}
+            
+  
+           {% endfor %}   
+        </div>
+    
+    </div>
+    
+</body>
+</html>
