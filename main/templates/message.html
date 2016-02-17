@@ -1,58 +1,60 @@
-<!DOCTYPE html> {% extends "base.html" %}
+{% extends "base.html" %} {% load staticfiles %}
+<!DOCTYPE html>
+
 
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Message</title>
+    <title>Message Board</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/message.css' %}">
 </head>
 
 <body>
+    {% block body %}
 
-    {% block body%}
-
-    <div class="bigPicture">
-
-        <div class="postMessage">
-
-            <div class="comment_link">
-                <a href="/main/post">
-                    <button type="button">New Message</button>
-                </a>
-            </div>
-
-
-            <h3> Message: </h3> {% for message in message_list %}
-
-            <h3> {{ message.title }} </h3> {{ message.body }}
-
-            </br>
-            <h4> User: </h4> {{ message.user }}
-            <h3> Comment: </h3>
-            <div class="comment_link">
-                <a href="/main/comment">
-                    <button type="button">Comment</button>
-                </a>
-            </div>
-            </br>
-
-            </br>
-
-            {% for comment in message.comment_set.all %}
-            <h4> User: {{ message.user }}</h4> {{ comment.comments }}
-
-            </br>
-
-
-            {% endfor %} {% endfor %}
+    <div class="container">
+        <div>
+            <a href="/main/post">
+                <button type="button"><h2>New Message</h2></button>
+            </a>
         </div>
 
+        <h2>Message Board:</h2> {% for mess in messages %}
+        <div id="{{mess.id}}" class="post">
+
+            <h3>Subject: {{ mess.title}}</h3>
+            <h4>Posted By: {{ mess.user }}</h4>
+            <p>{{ mess.body|linebreaks }}</p>
+            <br>
+            <h4>Comments:</h4>
+            <hr> {% for comment in mess.comment_set.all %}
+            <p><b>{{ comment.user }}</b>&nbsp{{ comment.body }}</p>
+            {% endfor %} {% if user.is_authenticated %}
+            <form action="#{{mess.id}}" method="post">{% csrf_token %}
+                <input type='text' name='comment_body' placeholder="Write a Comment" style="width:80%; height:100%;" />
+
+                <input type='hidden' value='{{ mess }}' name='message' />
+                <input type='hidden' value='{{ user }}' name='user' />
+
+                <input type="submit" value="Create" />
+            </form>
+            {% else %} login to make a Comment {% endif %}
+            <br>
+            <hr>
 
 
+
+
+        </div>
+        {% endfor %}
 
     </div>
 
-    {% endblock body%}
+
+    {% endblock body %}
+
 
 </body>
 

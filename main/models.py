@@ -15,6 +15,8 @@ class Message(models.Model):
     
 
 class Comment(models.Model):
-    comments = models.TextField()
+    body = models.TextField()
     user = models.ForeignKey(User)
-    messages = models.ForeignKey(Message)
+    message = models.ForeignKey(Message)
+    def __str__(self):
+        return self.body
