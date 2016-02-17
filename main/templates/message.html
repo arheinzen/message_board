@@ -1,44 +1,59 @@
-<!DOCTYPE html>
+<!DOCTYPE html> {% extends "base.html" %}
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Message</title>
 </head>
+
 <body>
-   
-   <div class="bigPicture">
-       
-       <div class="message">
-       
-           
-           <h3> Message: </h3>
-           {% for message in message_list %}
-           
-           <h3> {{ message.title }} </h3>
-           
-           {{ message.body }}
-           
-           </br>
-       
-           </br>
-            
-           <h3> Comment: </h3>
-               {% for comment in message.comment_set.all %}
-             
-               {{ comment.comments }}
-             
-                </br>
-             
-               <h4> User: </h4>
-               {{ message.user }}
-               
-               {% endfor %}
-            
-  
-           {% endfor %}   
+
+    {% block body%}
+
+    <div class="bigPicture">
+
+        <div class="postMessage">
+
+            <div class="comment_link">
+                <a href="/main/post">
+                    <button type="button">New Message</button>
+                </a>
+            </div>
+
+
+            <h3> Message: </h3> {% for message in message_list %}
+
+            <h3> {{ message.title }} </h3> {{ message.body }}
+
+            </br>
+            <h4> User: </h4> {{ message.user }}
+            <h3> Comment: </h3>
+            <div class="comment_link">
+                <a href="/main/comment">
+                    <button type="button">Comment</button>
+                </a>
+            </div>
+            </br>
+
+            </br>
+
+            {% for comment in message.comment_set.all %}
+            <h4> User: {{ message.user }}</h4> {{ comment.comments }}
+
+            </br>
+
+
+            {% endfor %} {% endfor %}
         </div>
-    
+
+
+
+
     </div>
-    
+
+    {% endblock body%}
+
 </body>
+
 </html>

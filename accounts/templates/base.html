@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts Base HTML</title>
+</head>
+
+<body>
+
+    : {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }} <a href="{% url 'accounts:logout' %}">[logout]</a></p>
+    {% else %}
+    <p>Welcome, Guest <a href="{% url 'accounts:login' %}">[login]</a></p>
+    {% endif %} : {% block body %} {% endblock body %}
+</body>
+
+</html>
