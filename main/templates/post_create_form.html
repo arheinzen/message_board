@@ -10,10 +10,14 @@
 <body>
 
     {% block body %}
+    {% if user.is_authenticated %}
 
     <form action="" method="post">{% csrf_token %} {{ form.as_p }}
         <input type="submit" value="Create" />
     </form>
+    {% else %}
+    <p> Please login to create a new message.</p>
+    {% endif %}
 
 
     {% endblock body %}

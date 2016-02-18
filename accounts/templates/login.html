@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+
 <html lang="en">
 
 <head>
@@ -9,10 +10,7 @@
 
 <body>
 
-<h1> Welcome to Message Board! </h1>
-
-
-    {% block body %} {% if form.errors %}
+    <h1> Welcome to Message Board! </h1> {% block body %} {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
     <form method="post" action="{% url 'accounts:login' %}">
@@ -23,6 +21,18 @@
         <input type="submit" value="login" />
         <input type="hidden" name="next" value="/main/message" />
     </form>
+    </br>
+    <div class="createUser">
+        <h4>Need an account? Sign up here:</h4>
+        <a href="/accounts/signup">
+            <button type="button">Create Account</button>
+        </a>
+        </br>
+        </br>
+        <a href="/main/message">Continue to Message Board as guest!</a>
+
+
+    </div>
     {% endblock body %}
 
 </body>
